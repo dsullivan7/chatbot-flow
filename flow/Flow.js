@@ -66,7 +66,7 @@ class Flow {
     if (!user.chatHistory) {
       user.chatHistory = []
     }
-    user.chatHistory.push({ user: messageData })
+    user.chatHistory.push({ agent: 'user', value: messageData })
 
     // save the response according to the state
     if (!user.responses) {
@@ -105,7 +105,7 @@ class Flow {
     }
 
     return Promise.all(messages)
-      .then(values => values.forEach(value => user.chatHistory.push({ bot: value })))
+      .then(values => values.forEach(value => user.chatHistory.push({ agent: 'bot', value })))
       .then(() => Promise.all(messages))
   }
 }
