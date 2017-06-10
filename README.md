@@ -42,7 +42,7 @@ const flowConfig = {
 const flow = new Flow(flowConfig)
 
 flow.getMessages('123', {text: 'Hey There'}).then(messages => {
-	// do something with the message objects
-	// like send them via Facebook Messenger
+  // do something with the message objects
+  // like send them via Facebook Messenger
 })
 ```
