@@ -6,7 +6,7 @@ npm install chatbot-flow
 ```
 
 ## Usage
-```
+```javascript
 import {Flow} from 'chatbot-flow'
 
 const flowConfig = {
