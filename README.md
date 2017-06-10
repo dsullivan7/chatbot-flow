@@ -7,7 +7,7 @@ npm install chatbot-flow
 
 ## Usage
 ```
-import {Flow} from chatbot-flow
+import {Flow} from 'chatbot-flow'
 
 const flowConfig = {
   initialState: 'GREETING',
@@ -43,5 +43,6 @@ const flow = new Flow(flowConfig)
 
 flow.getMessages('123', {text: 'Hey There'}).then(messages => {
 	// do something with the message objects
+	// like send them via Facebook Messenger
 })
 ```
