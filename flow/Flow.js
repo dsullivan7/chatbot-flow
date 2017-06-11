@@ -16,7 +16,7 @@ class Flow {
       state =>
         ((messageData.payload && messageData.payload.startsWith(state)) ||
          (this.flow.states[state].match &&
-          this.flow.states[state].match(user, messageData.text))
+          this.flow.states[state].match(user, messageData))
         ))
   }
 

@@ -16,14 +16,14 @@ const flowConfig = {
       next: () => 'ONE',
     },
     ONE: {
-      noReply: true,
       next: () => 'TWO',
-      message: () => ({
-        text: 'this is one',
+      message: user => ({
+        text: `this is one ${user.sessionId}`,
       }),
+      noReply: true,
     },
     TWO: {
-      match: (user, response) => response === 'qwer',
+      match: (user, messageData) => messageData.text === 'trying to match something',
       next: () => 'END',
       message: () => ({
         text: 'this is two',
