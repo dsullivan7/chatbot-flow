@@ -1,5 +1,5 @@
 
-class Flow {
+export default class Flow {
 
   constructor(flow) {
     this.flow = flow
@@ -106,5 +106,3 @@ class Flow {
       .then(() => Promise.all(messages))
   }
 }
-
-module.exports = { Flow }

@@ -1,7 +1,7 @@
 /* eslint-env node, mocha */
 import assert from 'assert'
 
-import { Flow } from '../Flow'
+import Flow from '../Flow'
 
 const payloadMatch = (state, messageData) =>
   (messageData.payload && messageData.payload.startsWith(state))
