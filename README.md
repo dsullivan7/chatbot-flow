@@ -23,10 +23,14 @@ const flowConfig = {
       noReply: true,
     },
     TWO: {
-      match: (user, messageData) => messageData.text === 'trying to match something',
+      match: (user, messageData) => (messageData.text === 'trying to match something'),
       next: () => 'END',
       message: () => ({
         text: 'this is two',
+        answers: {
+          TWO_OPTION_1: 'Option 1',
+          TWO_OPTION_2: 'Option 2',
+        },
       }),
     },
     END: {

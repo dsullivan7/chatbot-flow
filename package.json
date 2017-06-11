@@ -12,6 +12,10 @@
   },
   "author": "Danny Sullivan",
   "license": "ISC",
+  "keywords": [
+    "chatbot",
+    "chat"
+  ],
   "bugs": {
     "url": "https://github.com/dsullivan7/chatbot-flow/issues"
   },
