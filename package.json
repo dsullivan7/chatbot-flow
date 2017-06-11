@@ -1,12 +1,12 @@
 {
   "name": "chatbot-flow",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "A framework for supporting conversation state flow",
   "main": "distribution/index.js",
   "scripts": {
     "test": "mocha --require babel-register src/**/*.tests.js",
     "build": "babel src --ignore src/test --out-dir distribution",
-    "pre-publish": "npm run build"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
