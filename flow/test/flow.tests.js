@@ -15,7 +15,7 @@ const flowConfig = {
     ONE: {
       next: () => 'TWO',
       message: user => ({
-        text: `this is one ${user.sessionId}`,
+        text: `this is one ${user.userId}`,
       }),
       noReply: true,
     },

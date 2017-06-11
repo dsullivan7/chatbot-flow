@@ -3,7 +3,7 @@ class Flow {
 
   constructor(flow) {
     this.flow = flow
-    this.sessions = {}
+    this.users = {}
   }
 
   /**
@@ -26,27 +26,27 @@ class Flow {
   }
 
   /**
-   * return the user associated with the sessionId
-   * @param { String } sessionId - the sessionId to identify the user
+   * return the user associated with the userId
+   * @param { String } userId - the userId to identify the user
    */
-  getUser(sessionId) {
-    return this.sessions[sessionId]
+  getUser(userId) {
+    return this.users[userId]
   }
 
   /**
    * returns a Promise whose resolution is an array of messages
-   * @param  {String} sessionId - the session Id used to identify this conversation
+   * @param  {String} userId - the userId used to identify the user for this conversation
    * @param  {Object} messageData - an object of user message data
    * @return {Promise} - a Promise for an array
    */
-  getMessages(sessionId, messageData) {
+  getMessages(userId, messageData) {
     // extract the user from store
-    if (!this.sessions[sessionId]) {
-      this.sessions[sessionId] = {}
+    if (!this.users[userId]) {
+      this.users[userId] = {}
     }
 
-    const user = this.sessions[sessionId]
-    user.sessionId = sessionId
+    const user = this.users[userId]
+    user.userId = userId
 
     // ensure that the response matches the current state
     // if not, reset the state
