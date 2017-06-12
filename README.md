@@ -10,11 +10,8 @@ npm install chatbot-flow
 import {Flow} from 'chatbot-flow'
 
 const flowConfig = {
-  initialState: 'GREETING',
+  defaultState: 'ONE',
   states: {
-    GREETING: {
-      next: () => 'ONE',
-    },
     ONE: {
       next: () => 'TWO',
       message: user => ({

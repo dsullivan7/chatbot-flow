@@ -65,32 +65,22 @@ export default class Flow {
       user = this.addUser(userId)
     }
 
-    // ensure that the response matches the current state
-    // if not, reset the state
+    // archive the response
+    user.chatHistory.push({ agent: 'user', data: messageData })
+
+    // try to match the message with a given state
     const match = this.stateMatch(user, messageData)
     if (match) {
       user.currentState = match
     }
 
     if (!user.currentState) {
-      user.currentState = this.flow.initialState
+      user.currentState = this.flow.defaultState
+    } else {
+      // update the current state
+      user.responses[user.currentState] = messageData
+      user.currentState = this.nextState(user)
     }
-
-    // archive and save the response
-    user.chatHistory.push({ agent: 'user', data: messageData })
-    user.responses[user.currentState] = messageData
-
-    // check to see if this response is a valid one
-    if (this.flow.states[user.currentState].validation) {
-      const invalidMessage = this.flow.states[user.currentState].validation(messageData)
-      if (invalidMessage) {
-        // this is an invalid response, send it to the user
-        return [invalidMessage]
-      }
-    }
-
-    // update the current state
-    user.currentState = this.nextState(user)
 
     const messages = this.messageChain(user)
 

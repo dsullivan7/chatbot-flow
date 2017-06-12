@@ -7,11 +7,8 @@ const payloadMatch = (state, messageData) =>
   (messageData.payload && messageData.payload.startsWith(state))
 
 const flowConfig = {
-  initialState: 'GREETING',
+  defaultState: 'ONE',
   states: {
-    GREETING: {
-      next: () => 'ONE',
-    },
     ONE: {
       next: () => 'TWO',
       message: user => ({
