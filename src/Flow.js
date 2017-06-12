@@ -1,3 +1,9 @@
+/*
+eslint no-param-reassign:
+  [
+  "error", { "props": true, "ignorePropertyModificationsFor": ["user"] }
+  ]
+*/
 
 export default class Flow {
 
@@ -34,6 +40,19 @@ export default class Flow {
   }
 
   /**
+   * adds and returns a user associated with the userId
+   * @param { String } userId - the userId to identify the user
+   */
+  addUser(userId) {
+    this.users[userId] = {
+      userId,
+      chatHistory: [],
+      responses: {},
+    }
+    return this.users[userId]
+  }
+
+  /**
    * returns a Promise whose resolution is an array of messages
    * @param  {String} userId - the userId used to identify the user for this conversation
    * @param  {Object} messageData - an object of user message data
@@ -41,12 +60,10 @@ export default class Flow {
    */
   getMessages(userId, messageData) {
     // extract the user from store
-    if (!this.users[userId]) {
-      this.users[userId] = {}
+    let user = this.getUser(userId)
+    if (!user) {
+      user = this.addUser(userId)
     }
-
-    const user = this.users[userId]
-    user.userId = userId
 
     // ensure that the response matches the current state
     // if not, reset the state
@@ -59,16 +76,8 @@ export default class Flow {
       user.currentState = this.flow.initialState
     }
 
-    // archive the response
-    if (!user.chatHistory) {
-      user.chatHistory = []
-    }
+    // archive and save the response
     user.chatHistory.push({ agent: 'user', data: messageData })
-
-    // save the response according to the state
-    if (!user.responses) {
-      user.responses = {}
-    }
     user.responses[user.currentState] = messageData
 
     // check to see if this response is a valid one
@@ -83,6 +92,14 @@ export default class Flow {
     // update the current state
     user.currentState = this.nextState(user)
 
+    const messages = this.messageChain(user)
+
+    return messages
+      .then(values => values.forEach(value => user.chatHistory.push({ agent: 'bot', data: value })))
+      .then(() => messages)
+  }
+
+  messageChain(user) {
     const messages = []
 
     // create messages until we encounter a message that needs a reply
@@ -102,7 +119,5 @@ export default class Flow {
     }
 
     return Promise.all(messages)
-      .then(values => values.forEach(value => user.chatHistory.push({ agent: 'bot', data: value })))
-      .then(() => Promise.all(messages))
   }
 }
