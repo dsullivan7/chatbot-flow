@@ -76,6 +76,7 @@ export default class Flow {
 
     if (!user.currentState) {
       user.currentState = this.flow.defaultState
+      user.initialMessage = messageData
     } else {
       // update the current state
       user.responses[user.currentState] = messageData
