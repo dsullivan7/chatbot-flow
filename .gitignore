@@ -1,2 +1,4 @@
 node_modules
 distribution
+.nyc_output
+coverage

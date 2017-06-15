@@ -1,1 +1,10 @@
 src
+
+# build tools
+.travis.yml
+.babelrc
+.nyc_output
+coverage
+
+#linters
+.eslintrc*
