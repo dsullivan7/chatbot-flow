@@ -1,4 +1,5 @@
-# A framework for supporting conversation state flow
+# A Tool for Chatbots
+chatbot-flow is an implementation of finite state machines built with chatbot conversations in mind.
 
 ## Install
 ```

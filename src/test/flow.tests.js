@@ -3,9 +3,6 @@ import assert from 'assert'
 
 import Flow from '../Flow'
 
-const payloadMatch = (state, messageData) =>
-  (messageData.payload && messageData.payload.startsWith(state))
-
 const flowConfig = {
   defaultState: 'ONE',
   states: {
@@ -17,7 +14,7 @@ const flowConfig = {
       noReply: true,
     },
     TWO: {
-      match: (user, messageData) => (messageData.text === 'trying to match something' || payloadMatch('TWO', messageData)),
+      match: (user, messageData) => (messageData.text === 'trying to match something'),
       next: () => 'END',
       message: () => ({
         text: 'this is two',
@@ -61,10 +58,7 @@ describe('flow', () => {
   })
   describe('#stateMatch()', () => {
     const flow = new Flow(flowConfig)
-    it('should return TWO when testing TWO_OPTION_1', () => {
-      assert.equal(flow.stateMatch({}, { payload: 'TWO_OPTION_1' }), 'TWO')
-    })
-    it('should return TWO when testing qwer', () => {
+    it('should return TWO when testing "trying to match something"', () => {
       assert.equal(flow.stateMatch({}, { text: 'trying to match something' }), 'TWO')
     })
   })
