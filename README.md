@@ -48,3 +48,8 @@ flow.getMessages('123', {text: 'Hey There'}).then(messages => {
   // like send them via Facebook Messenger
 })
 ```
+
+## Tests
+```
+npm run test
+```
