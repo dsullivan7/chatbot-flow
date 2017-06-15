@@ -19,23 +19,16 @@ const flowConfig = {
   defaultState: 'ONE',
   states: {
     ONE: {
-      next: user => (user.userId === '123' ? 'TWO' : 'THREE'),
-      message: user => ({
-        text: `this is your userId: ${user.userId}`,
-      }),
+      next: 'TWO',
+      message: {
+        text: 'This is an initial statement that doesn\'t need a response',
+      },
       noReply: true,
     },
     TWO: {
-      next: 'THREE',
-      match: (user, messageData) => (messageData.text === 'trying to match something'),
-      message: user => ({
-        text: `You started off saying "${user.initialMessage.text}"`,
-      }),
-    },
-    THREE: {
       next: 'END',
       message: {
-        text: 'This one is just an object',
+        text: 'This is my first question',
       },
     },
     END: {
@@ -54,13 +47,13 @@ flow.getMessages('123', {text: 'Hey There'})
 .then(messages => {
   /*
   messages:
-  [{text: 'this is your userId: 123'}, {text: 'You started off saying "Hey There"'}]
+  [{text: 'This is an initial statement that doesn\'t need a response'},
+   {text: 'You started off saying "Hey There"'}]
 
   You can use send this array using whatever platform you choose: Facebook Messenger, Slack, etc...
   */
 })
 .then(() => flow.getMessages('123', {text: 'This is my answer'}))
-.then(() => flow.getMessages('123', {text: 'This is my second answer'}))
 .then(messages => {
   /*
   messages:
@@ -68,3 +61,6 @@ flow.getMessages('123', {text: 'Hey There'})
   */
 })
 ```
+
+## Contact
+If you have any feedback, ideas, requests, or other thoughts, feel free to reach out to me at dbsullivan@gmail.com
