@@ -61,8 +61,3 @@ flow.getMessages('123', {text: 'Hey There'})
   */
 })
 ```
-
-## Tests
-```
-npm run test
-```
