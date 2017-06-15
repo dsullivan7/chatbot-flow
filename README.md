@@ -1,4 +1,8 @@
 # A Tool for Chatbots
+
+[![NPM version](https://img.shields.io/npm/v/chatbot-flow.svg?style=flat)](https://www.npmjs.org/package/chatbot-flow)
+[![Build Status](https://travis-ci.org/dsullivan7/chatbot-flow.svg?branch=master)](https://travis-ci.org/dsullivan7/chatbot-flow)
+
 chatbot-flow is an implementation of finite state machines built with chatbot conversations in mind.
 
 ## Install
