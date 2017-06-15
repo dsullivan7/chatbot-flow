@@ -19,22 +19,28 @@ const flowConfig = {
   defaultState: 'ONE',
   states: {
     ONE: {
-      next: () => 'TWO',
+      next: user => (user.userId === '123' ? 'TWO' : 'THREE'),
       message: user => ({
         text: `this is your userId: ${user.userId}`,
       }),
       noReply: true,
     },
     TWO: {
+      next: 'THREE',
       match: (user, messageData) => (messageData.text === 'trying to match something'),
-      next: () => 'END',
       message: user => ({
         text: `You started off saying "${user.initialMessage.text}"`,
       }),
     },
+    THREE: {
+      next: 'END',
+      message: {
+        text: 'This one is just an object',
+      },
+    },
     END: {
       noReply: true,
-      next: () => null,
+      next: null,
       message: user => ({
         text: `Your answer to my first question was "${user.responses.TWO.text}"`,
       }),
@@ -54,6 +60,7 @@ flow.getMessages('123', {text: 'Hey There'})
   */
 })
 .then(() => flow.getMessages('123', {text: 'This is my answer'}))
+.then(() => flow.getMessages('123', {text: 'This is my second answer'}))
 .then(messages => {
   /*
   messages:

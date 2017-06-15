@@ -30,7 +30,8 @@ export default class Flow {
    * @param { String } - the next state for the user
    */
   nextState(user) {
-    return this.flow.states[user.currentState].next(user)
+    const next = this.flow.states[user.currentState].next
+    return (typeof next === 'function') ? next(user) : next
   }
 
   /**
@@ -100,8 +101,9 @@ export default class Flow {
     // create messages until we encounter a message that needs a reply
     while (true) {
       if (user.currentState) {
-        const message = this.flow.states[user.currentState].message(user)
-        messages.push(message)
+        const message = this.flow.states[user.currentState].message
+        const messageResult = (typeof message === 'function') ? message(user) : message
+        messages.push(messageResult)
 
         if (this.flow.states[user.currentState].noReply) {
           user.currentState = this.nextState(user)
