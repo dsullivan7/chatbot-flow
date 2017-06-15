@@ -16,6 +16,7 @@ export default class Flow {
    * returns the state that this answer matches with
    * @param { Object } user - the user object
    * @param { Object } messageData - the message object
+   * @return { String } - the state that this message matches, null if no state
    */
   stateMatch(user, messageData) {
     return Object.keys(this.flow.states).find(
@@ -26,6 +27,7 @@ export default class Flow {
   /**
    * return the next state according to the response
    * @param { Object } user - the user object used to retrieve the next state
+   * @param { String } - the next state for the user
    */
   nextState(user) {
     return this.flow.states[user.currentState].next(user)
@@ -34,6 +36,7 @@ export default class Flow {
   /**
    * return the user associated with the userId
    * @param { String } userId - the userId to identify the user
+   * @return { Object } - the user identified by the id
    */
   getUser(userId) {
     return this.users[userId]
@@ -42,6 +45,7 @@ export default class Flow {
   /**
    * adds and returns a user associated with the userId
    * @param { String } userId - the userId to identify the user
+   * @return { Object } - the user created
    */
   addUser(userId) {
     this.users[userId] = {
@@ -49,7 +53,7 @@ export default class Flow {
       chatHistory: [],
       responses: {},
     }
-    return this.users[userId]
+    return this.getUser(userId)
   }
 
   /**
