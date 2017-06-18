@@ -48,7 +48,7 @@ flow.getMessages('123', {text: 'Hey There'})
   /*
   messages:
   [{text: 'This is an initial statement that doesn\'t need a response'},
-   {text: 'You started off saying "Hey There"'}]
+   {text: 'This is my first question'}]
 
   You can use send this array using whatever platform you choose: Facebook Messenger, Slack, etc...
   */
