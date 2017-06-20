@@ -1,6 +1,6 @@
 {
   "name": "chatbot-flow",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A framework for supporting conversation state flow",
   "main": "distribution/index.js",
   "scripts": {
