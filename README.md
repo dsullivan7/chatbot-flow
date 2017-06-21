@@ -63,4 +63,4 @@ flow.getMessages('123', {text: 'Hey There'})
 ```
 
 ## Contact
-If you have any feedback, ideas, requests, or other thoughts, feel free to reach out to me at dbsullivan@gmail.com
+If you have any feedback, ideas, requests, or other thoughts, feel free to reach out to me at dbsullivan23@gmail.com
