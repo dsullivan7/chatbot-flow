@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/dsullivan7/chatbot-flow.git"
   },
-  "author": "Danny Sullivan",
-  "license": "ISC",
+  "author": "Danny Sullivan <dbsullivan23@gmail.com>",
+  "license": "MIT",
   "keywords": [
     "chatbot",
     "chat"
