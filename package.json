@@ -1,7 +1,7 @@
 {
   "name": "chatbot-flow",
   "version": "0.0.11",
-  "description": "A framework for supporting conversation state flow",
+  "description": "An implementation of finite state machines built with chatbot conversations in mind",
   "main": "distribution/index.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --require babel-register src/**/*.tests.js",
