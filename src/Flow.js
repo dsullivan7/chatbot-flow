@@ -5,11 +5,13 @@ eslint no-param-reassign:
   ]
 */
 
+import UserStore from './UserStore'
+
 export default class Flow {
 
   constructor(flow) {
     this.flow = flow
-    this.users = {}
+    this.userStore = new UserStore()
   }
 
   /**
@@ -35,29 +37,6 @@ export default class Flow {
   }
 
   /**
-   * return the user associated with the userId
-   * @param { String } userId - the userId to identify the user
-   * @return { Object } - the user identified by the id
-   */
-  getUser(userId) {
-    return this.users[userId]
-  }
-
-  /**
-   * adds and returns a user associated with the userId
-   * @param { String } userId - the userId to identify the user
-   * @return { Object } - the user created
-   */
-  addUser(userId) {
-    this.users[userId] = {
-      userId,
-      chatHistory: [],
-      responses: {},
-    }
-    return this.getUser(userId)
-  }
-
-  /**
    * returns a Promise whose resolution is an array of messages
    * @param  {String} userId - the userId used to identify the user for this conversation
    * @param  {Object} messageData - an object of user message data
@@ -65,9 +44,9 @@ export default class Flow {
    */
   getMessages(userId, messageData) {
     // extract the user from store
-    let user = this.getUser(userId)
+    let user = this.userStore.getUser(userId)
     if (!user) {
-      user = this.addUser(userId)
+      user = this.userStore.addUser(userId)
     }
 
     // archive the response
