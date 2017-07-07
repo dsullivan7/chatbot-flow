@@ -8,7 +8,7 @@ const flowConfig = {
   states: {
     ONE: {
       next: user => (user.userId === '123' ? 'TWO' : 'THREE'),
-      message: user => ({
+      answer: user => ({
         text: `this is your userId: ${user.userId}`,
       }),
       noReply: true,
@@ -33,6 +33,16 @@ const flowConfig = {
         text: `Your answer to my first question was "${user.responses.TWO.text}"`,
       }),
     },
+    MATCH: {
+      match: (user, messageData) => messageData.text === 'match',
+      next: 'AFTER_MATCH',
+      answer: {
+        text: 'this was matched',
+      },
+    },
+    AFTER_MATCH: {
+      next: null,
+    },
   },
 }
 
@@ -53,7 +63,7 @@ describe('flow', () => {
       flow.getMessages(id, { text: 'my third message' }).then((messages) => {
         assert.equal(messages[0].text, 'Your answer to my first question was "my second message"')
       }))
-    it('should return the first and thrid messages', () =>
+    it('should return the first and third messages', () =>
       flow.getMessages('456', { text: 'my first message' }).then((messages) => {
         assert.equal(messages[0].text, 'this is your userId: 456')
         assert.equal(messages[1].text, 'This one is just an object')
@@ -65,6 +75,15 @@ describe('flow', () => {
     it('should match to the state', () =>
       flow.getMessages(id, { text: 'trying to match something' }).then((messages) => {
         assert.equal(messages[0].text, 'This one is just an object')
+      }))
+  })
+  describe('#getMessagesWithMatchAndAnswer()', () => {
+    const id = '123'
+    const flow = new Flow(flowConfig)
+    it('should match to the state with an answer', () =>
+      flow.getMessages(id, { text: 'match' }).then((messages) => {
+        assert.equal(messages.length, 1)
+        assert.equal(messages[0].text, 'this was matched')
       }))
   })
   describe('#stateMatch()', () => {

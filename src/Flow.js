@@ -64,7 +64,6 @@ export default class Flow {
     } else {
       // update the current state
       user.responses[user.currentState] = messageData
-      user.currentState = this.nextState(user)
     }
 
     const messages = this.messageChain(user)
@@ -79,19 +78,25 @@ export default class Flow {
 
     // create messages until we encounter a message that needs a reply
     while (true) {
-      if (user.currentState) {
-        const message = this.flow.states[user.currentState].message
+      const answer = this.flow.states[user.currentState].answer
+      if (answer) {
+        const answerResult = (typeof answer === 'function') ? answer(user) : answer
+        messages.push(answerResult)
+      }
+
+      // update the state
+      user.currentState = this.nextState(user)
+
+      if (!user.currentState) break
+
+      const message = user.currentState && this.flow.states[user.currentState].message
+      if (message) {
         const messageResult = (typeof message === 'function') ? message(user) : message
         messages.push(messageResult)
-
-        if (this.flow.states[user.currentState].noReply) {
-          user.currentState = this.nextState(user)
-        } else {
-          break
-        }
-      } else {
-        break
       }
+
+      // break the loop if we're waiting for a reply
+      if (!this.flow.states[user.currentState].noReply) break
     }
 
     return Promise.all(messages)
