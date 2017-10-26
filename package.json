@@ -1,6 +1,6 @@
 {
   "name": "chatbot-flow",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "An implementation of finite state machines built with chatbot conversations in mind",
   "main": "distribution/index.js",
   "scripts": {
