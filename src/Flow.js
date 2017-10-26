@@ -78,6 +78,8 @@ export default class Flow {
 
     // create messages until we encounter a message that needs a reply
     while (true) {
+      if (!user.currentState) break
+
       const answer = this.flow.states[user.currentState].answer
       if (answer) {
         const answerResult = (typeof answer === 'function') ? answer(user) : answer
